@@ -1,11 +1,13 @@
 package com.ttlecom.springbootelearning.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "categories")
-public class Categories {
+public class Category {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +24,12 @@ public class Categories {
   private int orderIndex;
 
   @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+  @JsonIgnore
   private List<Course> courseList;
 
-  public Categories() {}
+  public Category() {}
 
-  public Categories(int id, String title, String icon, int orderIndex) {
+  public Category(int id, String title, String icon, int orderIndex) {
     this.id = id;
     this.title = title;
     this.icon = icon;

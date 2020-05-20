@@ -28,7 +28,8 @@ public class ApiUserController {
     }
   }
 
-  @RequestMapping(value = "", method = RequestMethod.POST)
+  @PostMapping("")
+  @CrossOrigin
   public ResponseEntity<? extends Object> add(@RequestBody User user) {
     try {
       userService.add(user);

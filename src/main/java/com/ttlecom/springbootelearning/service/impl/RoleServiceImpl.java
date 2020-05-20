@@ -28,7 +28,7 @@ public class RoleServiceImpl implements RoleService {
   public void add(Role role) {
     Role entity = roleRepository.findByName(role.getName());
     if (entity == null) {
-      role.setName(role.getName().toLowerCase());
+      role.setName("ROLE_" + role.getName().toUpperCase());
       roleRepository.save(role);
     } else {
       System.out.println("Role is existing!");
@@ -38,7 +38,7 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public void update(Role role) {
     Role entity = roleRepository.findById(role.getId()).get();
-    entity.setName(role.getName().toLowerCase());
+    entity.setName(role.getName().toUpperCase());
     entity.setDescription(role.getDescription());
     roleRepository.save(entity);
   }

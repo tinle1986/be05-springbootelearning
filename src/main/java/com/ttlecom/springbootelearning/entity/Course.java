@@ -50,7 +50,7 @@ public class Course {
 
   @ManyToOne
   @JoinColumn(name = "category_id", insertable = false, updatable = false)
-  private Categories category;
+  private Category category;
 
   @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
   private List<Video> videoList;
@@ -183,11 +183,11 @@ public class Course {
     this.categoryId = categoryId;
   }
 
-  public Categories getCategory() {
+  public Category getCategory() {
     return category;
   }
 
-  public void setCategory(Categories category) {
+  public void setCategory(Category category) {
     this.category = category;
   }
 

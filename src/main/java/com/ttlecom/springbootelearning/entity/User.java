@@ -1,5 +1,6 @@
 package com.ttlecom.springbootelearning.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -39,9 +40,11 @@ public class User {
 
   @ManyToOne
   @JoinColumn(name = "role_id", insertable = false, updatable = false)
+  @JsonIgnore
   private Role role;
 
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  @JsonIgnore
   private List<UserCourse> userCourseList;
 
   public User() {

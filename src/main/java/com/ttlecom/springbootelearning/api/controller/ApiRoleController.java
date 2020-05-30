@@ -16,7 +16,7 @@ public class ApiRoleController {
   @Autowired
   private RoleService roleService;
 
-  @RequestMapping(value = "", method = RequestMethod.GET)
+  @GetMapping("")
   public ResponseEntity<? extends Object> index() {
     try {
       List<Role> roleList = roleService.getAll();
@@ -26,7 +26,7 @@ public class ApiRoleController {
     }
   }
 
-  @RequestMapping(value = "", method = RequestMethod.POST)
+  @PostMapping("")
   public ResponseEntity<? extends Object> add(@RequestBody Role role) {
     try {
       roleService.add(role);
@@ -36,7 +36,7 @@ public class ApiRoleController {
     }
   }
 
-  @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+  @PutMapping("{id}")
   public ResponseEntity<? extends Object> update(@PathVariable int id, @RequestBody Role role) {
     try {
       role.setId(id);
@@ -47,7 +47,7 @@ public class ApiRoleController {
     }
   }
 
-  @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+  @DeleteMapping("{id}")
   public ResponseEntity<? extends Object> delete(@PathVariable int id) {
     try {
       roleService.delete(id);

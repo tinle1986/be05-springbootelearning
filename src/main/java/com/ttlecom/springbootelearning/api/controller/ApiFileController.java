@@ -27,10 +27,10 @@ public class ApiFileController {
       String fileName = file.getOriginalFilename().replace(" ", "_");
       String rootPath = System.getProperty("user.dir");
 
-      System.out.println("rootPath: " + rootPath);
+//      System.out.println("rootPath: " + rootPath);
 
       String imgFolderPath = rootPath + uploadFolder;
-      System.out.println("imgFolderPath: " + imgFolderPath);
+//      System.out.println("imgFolderPath: " + imgFolderPath);
 
       File imgFolder = new File(imgFolderPath);
       if (!imgFolder.exists()) {
@@ -38,10 +38,11 @@ public class ApiFileController {
       }
 
       File filePath = new File(imgFolderPath + fileName);
-      System.out.println("filePath: " + filePath);
+//      System.out.println("filePath: " + filePath);
       file.transferTo(filePath);
 
       String returnPath = returnFolder + fileName;
+      System.out.println(returnPath);
 
       return new ResponseEntity<String>(returnPath, HttpStatus.OK);
     } catch (Exception e) {

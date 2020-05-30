@@ -27,6 +27,11 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public User getByEmail(String email) {
+    return userRepository.findByEmail(email);
+  }
+
+  @Override
   public void add(User user) {
     // check user duplicate by email instead of id
     User entity = userRepository.findByEmail(user.getEmail());

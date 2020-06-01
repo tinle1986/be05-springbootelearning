@@ -47,7 +47,6 @@ public class ApiAuthenticationController {
     try {
       Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
       SecurityContextHolder.getContext().setAuthentication(authentication);
-      System.out.println("This is apiAuthController: " + secretKey);
 
       Date now = new Date();
       long EXPIRATION_TIME = 864000000L;

@@ -1,8 +1,6 @@
 package com.ttlecom.springbootelearning.api.controller;
 
-import com.ttlecom.springbootelearning.dto.AvatarChangeDto;
-import com.ttlecom.springbootelearning.dto.PasswordChangeDto;
-import com.ttlecom.springbootelearning.dto.UserDto;
+import com.ttlecom.springbootelearning.dto.*;
 import com.ttlecom.springbootelearning.entity.User;
 import com.ttlecom.springbootelearning.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +20,10 @@ public class ApiUserController {
   @Autowired
   private UserService userService;
 
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
+  //  get user profile info
   @GetMapping("")
   public ResponseEntity<?> profile() {
     try {
@@ -34,6 +37,7 @@ public class ApiUserController {
     }
   }
 
+  //  get user list
   @GetMapping("list")
   public ResponseEntity<?> index() {
     try {
@@ -44,6 +48,7 @@ public class ApiUserController {
     }
   }
 
+  //  change avatar
   @PutMapping("avatar")
   public ResponseEntity<?> updateAvatar(@RequestBody AvatarChangeDto avatarChangeDto) {
     try {
@@ -56,6 +61,7 @@ public class ApiUserController {
     }
   }
 
+  //  get avatar url
   @GetMapping("avatar")
   public ResponseEntity<?> getAvatarUrl() {
     try {
@@ -72,6 +78,7 @@ public class ApiUserController {
     }
   }
 
+  // update user profile info v1
   @RequestMapping(value = "{id}", method = RequestMethod.PUT)
   public ResponseEntity<?> update(@PathVariable int id, @RequestBody User user) {
     try {
@@ -83,16 +90,53 @@ public class ApiUserController {
     }
   }
 
-  @RequestMapping(value = "password/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<?> password(@PathVariable int id, @RequestBody PasswordChangeDto passwordChangeDto) {
+//  update user profile info v2
+  @PutMapping("")
+  public ResponseEntity<?> updateUserProfile(@RequestBody UserProfileDto userProfileDto) {
     try {
-      User entity = userService.getById(id);
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = (UserDetails) principal;
+      String email = userDetails.getUsername();
+      User entity = userService.getByEmail(email);
+      entity.setEmail(userProfileDto.getEmail());
+      entity.setFullname(userProfileDto.getFullname());
+      entity.setPhone(userProfileDto.getPhone());
+      userService.update(entity);
+      return new ResponseEntity<String>("Updated the user profile successfully!", HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  //  @RequestMapping(value = "password/{id}", method = RequestMethod.PUT)
+  @PutMapping("password")
+  public ResponseEntity<?> changePassword(@RequestBody PasswordChangeDto passwordChangeDto) {
+    try {
+      User entity = userService.getByEmail(passwordChangeDto.getEmail());
       entity.setPassword(passwordChangeDto.getPassword());
       userService.updatePassword(entity);
       return new ResponseEntity<String>("Updated the password successfully!", HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
+  }
+
+  // check password matched, return true or false
+  @PostMapping("password")
+  public ResponseEntity<?> checkPasswordMatch(@RequestBody PasswordCheckDto passwordCheckDto) {
+    try {
+      String currentPassword = passwordCheckDto.getCurrentPassword();
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = (UserDetails) principal;
+      String email = userDetails.getUsername();
+      User entity = userService.getByEmail(email);
+      String encodedPassword = entity.getPassword();
+      Boolean result = passwordEncoder.matches(currentPassword, encodedPassword);
+      return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
   }
 
   @RequestMapping(value = "{id}", method = RequestMethod.DELETE)

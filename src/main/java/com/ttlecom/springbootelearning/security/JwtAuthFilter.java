@@ -33,11 +33,9 @@ public class JwtAuthFilter extends BasicAuthenticationFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
     String tokenHeader = request.getHeader("Authorization");
-//    System.out.println(tokenHeader);
 
     if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
       try {
-        System.out.println("This is jwtAuthFilter file: " + secretKey);
         String token = tokenHeader.replace("Bearer ", "");
         String email = Jwts.parser()
                 .setSigningKey(secretKey)

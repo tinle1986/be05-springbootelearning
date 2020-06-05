@@ -1,6 +1,7 @@
 package com.ttlecom.springbootelearning.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,8 @@ public class Course {
   private String image;
 
   @Column(name = "lecture_count")
-  private int lectureCount;
+  @Min(value = 0, message = "Please input a value greater than zero")
+  private Integer lectureCount;
 
   @Column(name = "hour_count")
   private int hourCount;
@@ -61,7 +63,8 @@ public class Course {
   @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
   private List<UserCourse> userCourseList;
 
-  public Course() {}
+  public Course() {
+  }
 
   public Course(int id, String title, String image, int lectureCount, int hourCount, int viewCount, double price, int discount, double promotionPrice, String description, String content, String lastUpdate, int categoryId) {
     this.id = id;
@@ -103,11 +106,11 @@ public class Course {
     this.image = image;
   }
 
-  public int getLectureCount() {
+  public Integer getLectureCount() {
     return lectureCount;
   }
 
-  public void setLectureCount(int lectureCount) {
+  public void setLectureCount(Integer lectureCount) {
     this.lectureCount = lectureCount;
   }
 

@@ -4,7 +4,7 @@
       layout:decorator="layout/default">
 <head>
   <meta charset="UTF-8">
-  <title>ADD NEW COURSE</title>
+  <title>UPDATE COURSE</title>
 </head>
 <body>
 <div class="main-body" layout:fragment="content">
@@ -17,20 +17,21 @@
               <a th:href="@{/}"> <i class="feather icon-home"></i> Trang
                 chủ</a>
             </li>
-            <li class="breadcrumb-item"><a th:href="@{/course/add}">Thêm mới khóa học</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/course/edit(id=${course.getId()})}">Cập nhật khóa học</a></li>
           </ul>
         </div>
       </div>
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h2 class="text-uppercase text-center">Thêm mới khóa học</h2>
+            <h2 class="text-uppercase text-center">Cập nhật khóa học</h2>
           </div>
           <div class="card-block">
-            <form th:object="${course}" th:action="@{/course/add}" method="post">
+            <form th:object="${course}" th:action="@{/course/edit}" method="post">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
+                    <input type="hidden" th:field="*{id}">
                     <label>Tiêu đề</label>
                     <input th:field="*{title}" type="text" name="title"
                            class="form-control" />

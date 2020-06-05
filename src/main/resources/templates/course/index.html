@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/default">
 <head>
-  <title>Title</title>
+  <title>COURSE LIST</title>
 </head>
 <body>
 <div class="main-body" layout:fragment="content">
@@ -12,10 +12,10 @@
       <div class="col-md-12 mb-2">
         <div class="page-header-breadcrumb">
           <ul class="breadcrumb-title">
-            <li class="breadcrumb-item"><a href="/admin"> <i
+            <li class="breadcrumb-item"><a th:href="@{/}"> <i
                     class="feather icon-home"></i> Trang chủ
             </a></li>
-            <li class="breadcrumb-item"><a href="#!">Danh sách khóa
+            <li class="breadcrumb-item"><a th:href="@{/course}">Danh sách khóa
               học</a></li>
           </ul>
         </div>
@@ -32,7 +32,7 @@
               <table class="table table-bordered">
                 <thead>
                 <tr>
-                  <th>STT</th>
+                  <th>Id</th>
                   <th>Tiêu Đề</th>
                   <th>Hình Đại Diện</th>
                   <th>Số Bài Học</th>
@@ -41,37 +41,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <th>1</th>
-                  <td>Javascript</td>
-                  <td><img src='./assets/images/1.png' height="50" class="p-1 border"/></td>
-                  <td>20</td>
-                  <td class="text-danger font-weight-bold">1.200.000 đ</td>
+                <tr th:each="item: ${courses}">
+                  <th th:text="${item.getId()}">1</th>
+                  <td th:text="${item.getTitle()}">Javascript</td>
+                  <td><img th:src="${item.getImage()}" src="./assets/images/1.png" height="50" class="p-1 border"/></td>
+                  <td th:text="${item.getLectureCount()}">20</td>
+                  <td th:text="${item.getPrice()}" class="text-danger font-weight-bold">1.200.000 đ</td>
                   <td>
-                    <a href="#" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
-                  </td>
-                </tr>
-                <tr>
-                  <th>2</th>
-                  <td>ReactJs</td>
-                  <td><img src='./assets/images/1.png' height="50" class="p-1 border"/></td>
-                  <td>30</td>
-                  <td class="text-danger font-weight-bold">1.500.000 đ</td>
-                  <td>
-                    <a href="#" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
-                  </td>
-                </tr>
-                <tr>
-                  <th>3</th>
-                  <td>Angular 7</td>
-                  <td><img src='./assets/images/1.png' height="50" class="p-1 border"/></td>
-                  <td>20</td>
-                  <td class="text-danger font-weight-bold">1.500.000 đ</td>
-                  <td>
-                    <a href="#" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
+                    <a th:href="@{/course/edit(id=${item.getId()})}"
+                       class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
+                    <a th:href="@{/course/delete(id=${item.getId()})}"
+                       class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
                   </td>
                 </tr>
                 </tbody>

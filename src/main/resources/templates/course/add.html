@@ -33,25 +33,28 @@
                   <div class="form-group">
                     <label>Tiêu đề</label>
                     <input th:field="*{title}" type="text" name="title"
-                           class="form-control" />
+                           class="form-control"/>
                     <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                   </div>
                   <div class="form-group">
                     <label>Số bài học</label>
                     <input th:field="*{lectureCount}" type="number" name="leturesCount"
-                           class="form-control" />
-                    <span class="text-danger" th:if="${#fields.hasErrors('lectureCount')}" th:errors="*{lectureCount}"></span>
+                           class="form-control"/>
+                    <span class="text-danger" th:if="${#fields.hasErrors('lectureCount')}"
+                          th:errors="*{lectureCount}"></span>
                   </div>
                   <div class="form-group">
                     <label>Số giờ học</label>
                     <input th:field="*{hourCount}" type="number" name="hourCount"
-                           class="form-control" />
+                           class="form-control"/>
                     <span class="text-danger" th:if="${#fields.hasErrors('hourCount')}" th:errors="*{hourCount}"></span>
                   </div>
                   <div class="form-group">
                     <label>Danh mục</label>
                     <select th:field="*{categoryId}" name="categoryId" class="form-control text-uppercase">
-                      <option th:each="item: ${categories}" th:value="${item.getId()}" th:text="${item.getTitle()}">Frontend</option>
+                      <option th:each="item: ${categories}" th:value="${item.getId()}" th:text="${item.getTitle()}">
+                        Frontend
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -59,27 +62,28 @@
                   <div class="form-group">
                     <label>Giá bán</label>
                     <input th:field="*{price}" type="text" name="price"
-                           class="form-control" />
+                           class="form-control"/>
                     <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
                   </div>
                   <div class="form-group">
                     <label>Giảm giá (%)</label>
                     <input th:field="*{discount}" type="number" name="discount"
-                           class="form-control" />
+                           class="form-control"/>
                     <span class="text-danger" th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}"></span>
                   </div>
                   <div class="form-group">
                     <label>Mô tả</label>
                     <input th:field="*{description}" type="text" name="description"
-                           class="form-control" />
-                    <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                           class="form-control"/>
+                    <span class="text-danger" th:if="${#fields.hasErrors('description')}"
+                          th:errors="*{description}"></span>
                   </div>
                   <div class="form-group">
                     <label>Hình đại diện</label>
-                    <input th:field="*{image}" type="file" name="image" onclick="function uploadImg() {
-
-                    }"
-                           class="form-control" />
+                    <input th:field="*{image}" type="hidden" id="imageData" class="form-control"/>
+                    <input type="file" name="imageUpload" id="imageUpload"
+                           accept="image/x-png,image/jpeg,image/jpg"/>
+                    <a id="imgUri" class="text-primary font-italic"></a>
                     <span class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span>
                   </div>
                 </div>
@@ -92,7 +96,8 @@
                 <div class="col-12 mt-3">
                   <div class="form-group">
                     <button type="submit"
-                            class="btn btn-primary m-b-0">Lưu lại</button>
+                            class="btn btn-primary m-b-0">Lưu lại
+                    </button>
                     <a th:href="@{/course}"
                        class="btn btn-secondary text-white">Quay
                       lại</a>
@@ -106,5 +111,34 @@
     </div>
   </div>
 </div>
+<th:block layout:fragment="script">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+      let imageFileInput = document.getElementById("imageUpload");
+      imageFileInput.addEventListener("change", event => {
+          let imgFile = event.target.files[0];
+          let formData = new FormData();
+          formData.append("file", imgFile);
+
+          axios({
+              url: "http://localhost:8082/image/upload",
+              method: "POST",
+              headers: {
+                  'Content-Type': 'multipart/form-data'
+              },
+              data: formData
+          }).then(res => {
+              let imgUri = "http://localhost:8082" + res.data;
+              let imgUriLink = document.getElementById("imgUri");
+              let imgData = document.getElementById("imageData")
+              imgUriLink.innerHTML = imgUri;
+              imgUriLink.setAttribute("href", imgUri);
+              imgData.value = imgUri;
+          }).catch(err => {
+              console.log(err);
+          })
+      })
+  </script>
+</th:block>
 </body>
 </html>

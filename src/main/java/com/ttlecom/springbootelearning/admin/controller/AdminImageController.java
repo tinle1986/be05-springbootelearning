@@ -40,7 +40,6 @@ public class AdminImageController {
       file.transferTo(filePath);
 
       String returnPath = returnFolder + fileName;
-      System.out.println(returnPath);
       return new ResponseEntity<String>(returnPath, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

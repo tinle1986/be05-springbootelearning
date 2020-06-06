@@ -44,7 +44,7 @@
                 <tr th:each="item: ${courses}">
                   <th th:text="${item.getId()}">1</th>
                   <td th:text="${item.getTitle()}">Javascript</td>
-                  <td><img th:src="${item.getImage()}" src="./assets/images/1.png" height="50" class="p-1 border"/></td>
+                  <td><img th:src="${item.getImage()}" height="50" class="p-1 border" alt="image"/></td>
                   <td th:text="${item.getLectureCount()}">20</td>
                   <td th:text="${item.getPrice()}" class="text-danger font-weight-bold">1.200.000 đ</td>
                   <td>

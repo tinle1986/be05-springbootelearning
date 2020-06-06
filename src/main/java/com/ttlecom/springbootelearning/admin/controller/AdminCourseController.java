@@ -28,6 +28,7 @@ public class AdminCourseController {
   public String index(Model model) {
     List<Course> courseList = courseService.getAll();
     model.addAttribute("courses", courseList);
+//    getCategories();
     return "course/index";
   }
 
@@ -125,4 +126,12 @@ public class AdminCourseController {
     courseService.delete(id);
     return "redirect:/course";
   }
+
+  // test calling api in spring
+//  private static void getCategories() {
+//    final String uri = "http://localhost:8082/api/category";
+//    RestTemplate restTemplate = new RestTemplate();
+//    String result = restTemplate.getForObject(uri, String.class);
+//    System.out.println(result);
+//  }
 }

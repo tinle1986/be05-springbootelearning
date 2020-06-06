@@ -76,7 +76,9 @@
                   </div>
                   <div class="form-group">
                     <label>Hình đại diện</label>
-                    <input th:field="*{image}" type="text" name="image"
+                    <input th:field="*{image}" type="file" name="image" onclick="function uploadImg() {
+
+                    }"
                            class="form-control" />
                     <span class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span>
                   </div>

@@ -18,7 +18,7 @@ public class Video {
   private String url;
 
   @Column(name = "time_count")
-  private int timeCount;
+  private Integer timeCount;
 
   @Column(name = "order_index")
   private int orderIndex;
@@ -69,11 +69,11 @@ public class Video {
     this.url = url;
   }
 
-  public int getTimeCount() {
+  public Integer getTimeCount() {
     return timeCount;
   }
 
-  public void setTimeCount(int timeCount) {
+  public void setTimeCount(Integer timeCount) {
     this.timeCount = timeCount;
   }
 

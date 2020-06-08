@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/default">
 <head>
-  <title>ADD NEW VIDEO</title>
+  <title>UPDATE VIDEO</title>
 </head>
 <body>
 <div class="main-body" layout:fragment="content">
@@ -17,7 +17,7 @@
                 <i class="feather icon-home"></i> Trang chủ
               </a>
             </li>
-            <li class="breadcrumb-item"><a th:href="@{/video/add}">Thêm mới video</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/video/edit(id=${video.getId()})}">Cập nhật video</a></li>
           </ul>
         </div>
       </div>
@@ -27,10 +27,11 @@
             <h2 class="text-uppercase text-center">Thêm mới video</h2>
           </div>
           <div class="card-block">
-            <form th:object="${video}" th:action="@{/video/add}" method="post">
+            <form th:object="${video}" th:action="@{/video/edit}" method="post">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
+                    <input type="hidden" th:field="*{id}" />
                     <label>Tiêu đề</label>
                     <input th:field="*{title}" type="text" name="title" class="form-control"/>
                     <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
@@ -46,7 +47,6 @@
                     <input type="file" name="imageUpload" id="imageUpload" class="form-control"
                            accept="image/x-png,image/jpeg,image/jpg"/>
                     <a id="imageUrl" class="text-primary font-italic"></a>
-                    <!--                    <span class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span>-->
                   </div>
                 </div>
                 <div class="col-md-6">

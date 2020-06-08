@@ -12,10 +12,10 @@
       <div class="col-md-12 mb-2">
         <div class="page-header-breadcrumb">
           <ul class="breadcrumb-title">
-            <li class="breadcrumb-item"><a href="/admin"> <i
+            <li class="breadcrumb-item"><a th:href="@{/}"> <i
                     class="feather icon-home"></i> Trang chủ
             </a></li>
-            <li class="breadcrumb-item"><a href="#!">Danh sách video</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/video}">Danh sách video</a></li>
           </ul>
         </div>
       </div>
@@ -30,7 +30,7 @@
               <table class="table table-bordered">
                 <thead>
                 <tr>
-                  <th>STT</th>
+                  <th>Id</th>
                   <th>Tiêu Đề</th>
                   <th>Hình Đại Diện</th>
                   <th>Thời Lượng</th>
@@ -38,28 +38,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <th>1</th>
-                  <td>Giới thiệu tổng quan</td>
+                <tr th:each="item: ${videos}">
+                  <th th:text="${item.getId()}">1</th>
+                  <td th:text="${item.getTitle()}">Giới thiệu tổng quan</td>
                   <td>
-                    <img src='./assets/images/1.png' height="50" class="p-1 border" />
+                    <img th:src="${item.getImage()}" src='./assets/images/1.png' height="50" class="p-1 border"/>
                   </td>
-                  <td>12 phút</td>
+                  <td th:text="${item.getTimeCount()}">12 phút</td>
                   <td>
-                    <a href="#" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
-                  </td>
-                </tr>
-                <tr>
-                  <th>1</th>
-                  <td>Javascript căn bản</td>
-                  <td>
-                    <img src='./assets/images/1.png' height="50" class="p-1 border" />
-                  </td>
-                  <td>18 phút</td>
-                  <td>
-                    <a href="#" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
+                    <a th:href="@{/video/edit(id=${item.getId()})}"
+                       class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
+                    <a th:href="@{/video/delete(id=${item.getId()})}"
+                       class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
                   </td>
                 </tr>
                 </tbody>

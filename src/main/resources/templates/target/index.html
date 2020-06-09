@@ -13,11 +13,11 @@
         <div class="page-header-breadcrumb">
           <ul class="breadcrumb-title">
             <li class="breadcrumb-item">
-              <a href="/admin">
+              <a th:href="@{/}">
                 <i class="feather icon-home"></i> Trang chủ
               </a>
             </li>
-            <li class="breadcrumb-item"><a href="#!">Danh sách kết quả đạt
+            <li class="breadcrumb-item"><a th:href="@{/target}">Danh sách mục tiêu đạt
               được</a></li>
           </ul>
         </div>
@@ -35,26 +35,20 @@
               <table class="table table-bordered">
                 <thead>
                 <tr>
-                  <th>STT</th>
+                  <th>Id</th>
                   <th>Tiêu Đề</th>
                   <th>Hành Động</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <th>1</th>
-                  <td>Mục tiêu 01</td>
+                <tr th:each="item: ${targets}">
+                  <th th:text="${item.getId()}">1</th>
+                  <td th:text="${item.getTitle()}">Mục tiêu 01</td>
                   <td>
-                    <a href="#" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
-                  </td>
-                </tr>
-                <tr>
-                  <th>2</th>
-                  <td>Mục tiêu 02</td>
-                  <td>
-                    <a href="#" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
+                    <a th:href="@{/target/edit(id=${item.getId()})}"
+                       class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
+                    <a th:href="@{/target/delete(id=${item.getId()})}"
+                       class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
                   </td>
                 </tr>
                 </tbody>

@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/default">
 <head>
-  <title>ADD NEW TARGET</title>
+  <title>UPDATE TARGET</title>
 </head>
 <body>
 <div class="main-body" layout:fragment="content">
@@ -18,7 +18,7 @@
               </a>
             </li>
             <li class="breadcrumb-item">
-              <a th:href="@{/target/add}">Thêm mới mục tiêu</a>
+              <a th:href="@{/target/edit(id=${target.getId()})}">Cập nhật mục tiêu</a>
             </li>
           </ul>
         </div>
@@ -29,10 +29,11 @@
             <h2 class="text-uppercase text-center">Thêm mới mục tiêu</h2>
           </div>
           <div class="card-block">
-            <form th:object="${target}" th:action="@{/target/add}" action="#" method="post">
+            <form th:object="${target}" th:action="@{/target/edit}" action="#" method="post">
               <div class="row">
                 <div class="col-md-6 m-auto">
                   <div class="form-group">
+                    <input type="hidden" th:field="*{id}" />
                     <label>Tiêu đề</label>
                     <input th:field="*{title}" type="text" name="title" class="form-control"/>
                     <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>

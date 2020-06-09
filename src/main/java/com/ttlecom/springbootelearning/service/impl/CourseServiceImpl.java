@@ -44,8 +44,8 @@ public class CourseServiceImpl implements CourseService {
   @Override
   public void update(Course course) {
     Course entity = courseRepository.findById(course.getId()).get();
-    entity.setLectureCount(course.getLectureCount());
-    entity.setHourCount(course.getHourCount());
+    entity.setLectureCount();
+    entity.setHourCount();
     entity.setCategoryId(course.getCategoryId());
     entity.setContent(course.getContent());
     entity.setPrice(course.getPrice());

@@ -24,19 +24,19 @@ public class Course {
   private Integer lectureCount;
 
   @Column(name = "hour_count")
-  private int hourCount;
+  private Integer hourCount;
 
   @Column(name = "view_count")
-  private int viewCount;
+  private Long viewCount;
 
   @Column(name = "price")
-  private double price;
+  private Double price;
 
   @Column(name = "discount")
-  private int discount;
+  private Integer discount;
 
   @Column(name = "promotion_price")
-  private double promotionPrice;
+  private Double promotionPrice;
 
   @Column(name = "description")
   private String description;
@@ -66,7 +66,7 @@ public class Course {
   public Course() {
   }
 
-  public Course(int id, String title, String image, int lectureCount, int hourCount, int viewCount, double price, int discount, double promotionPrice, String description, String content, String lastUpdate, int categoryId) {
+  public Course(int id, String title, String image, int lectureCount, int hourCount, Long viewCount, double price, int discount, double promotionPrice, String description, String content, String lastUpdate, int categoryId) {
     this.id = id;
     this.title = title;
     this.image = image;
@@ -110,47 +110,51 @@ public class Course {
     return lectureCount;
   }
 
-  public void setLectureCount(Integer lectureCount) {
-    this.lectureCount = lectureCount;
+  public void setLectureCount() {
+    this.lectureCount = Math.max(this.getVideoList().size(), 0);
   }
 
-  public int getHourCount() {
+  public Integer getHourCount() {
     return hourCount;
   }
 
-  public void setHourCount(int hourCount) {
-    this.hourCount = hourCount;
+  public void setHourCount() {
+    int totalHourCount = 0;
+    for(Video video: this.getVideoList()) {
+      totalHourCount += video.getTimeCount();
+    }
+    this.hourCount = totalHourCount;
   }
 
-  public int getViewCount() {
+  public Long getViewCount() {
     return viewCount;
   }
 
-  public void setViewCount(int viewCount) {
+  public void setViewCount(Long viewCount) {
     this.viewCount = viewCount;
   }
 
-  public double getPrice() {
+  public Double getPrice() {
     return price;
   }
 
-  public void setPrice(double price) {
+  public void setPrice(Double price) {
     this.price = price;
   }
 
-  public int getDiscount() {
+  public Integer getDiscount() {
     return discount;
   }
 
-  public void setDiscount(int discount) {
+  public void setDiscount(Integer discount) {
     this.discount = discount;
   }
 
-  public double getPromotionPrice() {
+  public Double getPromotionPrice() {
     return promotionPrice;
   }
 
-  public void setPromotionPrice(double promotionPrice) {
+  public void setPromotionPrice(Double promotionPrice) {
     this.promotionPrice = promotionPrice;
   }
 

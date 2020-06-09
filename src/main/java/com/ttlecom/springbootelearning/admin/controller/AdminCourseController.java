@@ -65,10 +65,10 @@ public class AdminCourseController {
       course.setImage("./assets/images/1.png");
     }
 
-    if (course.getLectureCount() == null) {
+    /*if (course.getLectureCount() == null) {
 //      errors.rejectValue("lectureCount", "course", "Please input a number");
       course.setLectureCount(0);
-    }
+    }*/
 
     if (errors.hasErrors()) {
       List<Category> categoryList = categoryService.getAll();
@@ -107,9 +107,9 @@ public class AdminCourseController {
       course.setImage("./assets/images/1.png");
     }
 
-    if (course.getLectureCount() == null) {
+    /*if (course.getLectureCount() == null) {
       course.setLectureCount(0);
-    }
+    }*/
 
     if (errors.hasErrors()) {
       List<Category> categoryList = categoryService.getAll();

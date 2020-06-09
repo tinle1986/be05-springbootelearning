@@ -38,14 +38,14 @@
                   </div>
                   <div class="form-group">
                     <label>Số bài học</label>
-                    <input th:field="*{lectureCount}" type="number" name="leturesCount"
+                    <input th:field="*{lectureCount}" type="number" name="leturesCount" readonly
                            class="form-control"/>
                     <span class="text-danger" th:if="${#fields.hasErrors('lectureCount')}"
                           th:errors="*{lectureCount}"></span>
                   </div>
                   <div class="form-group">
                     <label>Số giờ học</label>
-                    <input th:field="*{hourCount}" type="number" name="hourCount"
+                    <input th:field="*{hourCount}" type="number" name="hourCount" readonly
                            class="form-control"/>
                     <span class="text-danger" th:if="${#fields.hasErrors('hourCount')}" th:errors="*{hourCount}"></span>
                   </div>

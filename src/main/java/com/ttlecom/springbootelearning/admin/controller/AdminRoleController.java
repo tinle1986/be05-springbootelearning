@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("role")
+@RequestMapping("admin/role")
 public class AdminRoleController {
 
   @Autowired
@@ -43,7 +43,7 @@ public class AdminRoleController {
       return "role/add";
     }
     roleService.add(role);
-    return "redirect:/role/";
+    return "redirect:/admin/role";
   }
 
   @RequestMapping(value = "edit", method = RequestMethod.GET)
@@ -62,12 +62,12 @@ public class AdminRoleController {
       return "role/edit";
 
     roleService.update(role);
-    return "redirect:/role";
+    return "redirect:/admin/role";
   }
 
   @RequestMapping(value = "delete", method = RequestMethod.GET)
   public String delete(@RequestParam("id") int id) {
     roleService.delete(id);
-    return "redirect:/role";
+    return "redirect:/admin/role";
   }
 }

@@ -13,13 +13,13 @@
         <div class="page-header-breadcrumb">
           <ul class="breadcrumb-title">
             <li class="breadcrumb-item">
-              <a th:href="@{/}"> <i class="feather icon-home"></i> Trang
+              <a th:href="@{/admin}"> <i class="feather icon-home"></i> Trang
                 chủ</a>
             </li>
             <li class="breadcrumb-item">
-              <a th:href="@{/category}">Danh mục</a>
+              <a th:href="@{/admin/category}">Danh mục</a>
             </li>
-            <li class="breadcrumb-item"><a th:href="@{/category/edit(id=${category.getId()})}">Thêm mới danh mục</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/admin/category/edit(id=${category.getId()})}">Thêm mới danh mục</a></li>
           </ul>
         </div>
       </div>
@@ -29,7 +29,7 @@
             <h2 class="text-uppercase text-center">Cập nhật danh mục</h2>
           </div>
           <div class="card-block">
-            <form th:object="${category}" th:action="@{/category/edit}" method="post">
+            <form th:object="${category}" th:action="@{/admin/category/edit}" method="post">
               <div class="row">
                 <div class="col-md-6 m-auto">
                   <div class="form-group">
@@ -50,7 +50,7 @@
                             class="btn btn-primary m-b-0">Lưu
                       lại
                     </button>
-                    <a th:href="@{/category}"
+                    <a th:href="@{/admin/category}"
                        class="btn btn-secondary text-white">Quay
                       lại</a>
                   </div>

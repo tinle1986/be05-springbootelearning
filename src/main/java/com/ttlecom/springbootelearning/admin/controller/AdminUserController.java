@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("admin/user")
 public class AdminUserController {
 
   @Autowired
@@ -57,7 +57,7 @@ public class AdminUserController {
       return "user/add";
     }
     userService.add(user);
-    return "redirect:/user";
+    return "redirect:/admin/user";
   }
 
   @RequestMapping(value = "edit", method = RequestMethod.GET)
@@ -81,7 +81,7 @@ public class AdminUserController {
       return "user/edit";
     }
     userService.update(user);
-    return "redirect:/user";
+    return "redirect:/admin/user";
   }
 
   @RequestMapping(value = "password", method = RequestMethod.GET)
@@ -100,12 +100,12 @@ public class AdminUserController {
     if (errors.hasErrors())
       return "user/password";
     userService.updatePassword(user);
-    return "redirect:/user";
+    return "redirect:/admin/user";
   }
 
   @RequestMapping(value = "delete", method = RequestMethod.GET)
   public String delete(@RequestParam("id") int id) {
     userService.delete(id);
-    return "redirect:/user";
+    return "redirect:/admin/user";
   }
 }

@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("category")
+@RequestMapping("admin/category")
 public class AdminCategoryController {
 
   private final CategoryService categoryService;
@@ -47,7 +47,7 @@ public class AdminCategoryController {
     }
 
     categoryService.add(category);
-    return "redirect:/category";
+    return "redirect:/admin/category";
   }
 
   @GetMapping("edit")
@@ -73,12 +73,12 @@ public class AdminCategoryController {
     }
 
     categoryService.update(category);
-    return "redirect:/category";
+    return "redirect:/admin/category";
   }
 
   @GetMapping("delete")
   public String delete(@RequestParam("id") int id) {
     categoryService.delete(id);
-    return "redirect:/category";
+    return "redirect:/admin/category";
   }
 }

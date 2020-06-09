@@ -14,10 +14,10 @@
         <div class="page-header-breadcrumb">
           <ul class="breadcrumb-title">
             <li class="breadcrumb-item">
-              <a th:href="@{/}"> <i class="feather icon-home"></i> Trang
+              <a th:href="@{/admin}"> <i class="feather icon-home"></i> Trang
                 chủ</a>
             </li>
-            <li class="breadcrumb-item"><a th:href="@{/course/add}">Thêm mới khóa học</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/admin/course/add}">Thêm mới khóa học</a></li>
           </ul>
         </div>
       </div>
@@ -27,7 +27,7 @@
             <h2 class="text-uppercase text-center">Thêm mới khóa học</h2>
           </div>
           <div class="card-block">
-            <form th:object="${course}" th:action="@{/course/add}" method="post">
+            <form th:object="${course}" th:action="@{/admin/course/add}" method="post">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -98,7 +98,7 @@
                     <button type="submit"
                             class="btn btn-primary m-b-0">Lưu lại
                     </button>
-                    <a th:href="@{/course}"
+                    <a th:href="@{/admin/course}"
                        class="btn btn-secondary text-white">Quay
                       lại</a>
                   </div>
@@ -120,7 +120,7 @@
           formData.append("file", imgFile);
 
           axios({
-              url: "http://localhost:8082/image/upload",
+              url: "http://localhost:8082/admin/image/upload",
               method: "POST",
               headers: {
                   'Content-Type': 'multipart/form-data'

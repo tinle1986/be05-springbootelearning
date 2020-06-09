@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("target")
+@RequestMapping("admin/target")
 public class AdminTargetController {
 
   @Autowired
@@ -49,7 +49,7 @@ public class AdminTargetController {
     }
 
     targetService.add(target);
-    return "redirect:/target";
+    return "redirect:/admin/target";
   }
 
   @GetMapping("edit")
@@ -75,12 +75,12 @@ public class AdminTargetController {
     }
 
     targetService.update(target);
-    return "redirect:/target";
+    return "redirect:/admin/target";
   }
 
   @GetMapping("delete")
   public String delete(@RequestParam("id") int id) {
     targetService.delete(id);
-    return "redirect:/target";
+    return "redirect:/admin/target";
   }
 }

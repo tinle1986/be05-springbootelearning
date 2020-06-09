@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("video")
+@RequestMapping("admin/video")
 public class AdminVideoController {
 
   private final VideoService videoService;
@@ -57,7 +57,7 @@ public class AdminVideoController {
       errors.rejectValue("url", "video", "Please input an url");
     }
     if (video.getImage() == null || video.getImage().isEmpty()) {
-      video.setImage("./assets/images/1.png");
+      video.setImage("/assets/images/1.png");
     }
     if (errors.hasErrors()) {
       List<Course> courseList = courseService.getAll();
@@ -66,7 +66,7 @@ public class AdminVideoController {
     }
 
     videoService.add(video);
-    return "redirect:/video";
+    return "redirect:/admin/video";
   }
 
   @GetMapping("edit")
@@ -99,7 +99,7 @@ public class AdminVideoController {
       errors.rejectValue("url", "video", "Please input an url");
     }
     if (video.getImage() == null || video.getImage().isEmpty()) {
-      video.setImage("./assets/images/1.png");
+      video.setImage("/assets/images/1.png");
     }
     if (errors.hasErrors()) {
       List<Course> courseList = courseService.getAll();
@@ -108,12 +108,12 @@ public class AdminVideoController {
     }
 
     videoService.update(video);
-    return "redirect:/video";
+    return "redirect:/admin/video";
   }
 
   @GetMapping("delete")
   public String delete(@RequestParam("id") int id) {
     videoService.delete(id);
-    return "redirect:/video";
+    return "redirect:/admin/video";
   }
 }

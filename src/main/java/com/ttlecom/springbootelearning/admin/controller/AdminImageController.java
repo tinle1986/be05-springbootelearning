@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.Objects;
 
 @Controller
-@RequestMapping("image")
+@RequestMapping("admin/image")
 public class AdminImageController {
 
   // /src/main/resources/static/assets/upload/images/

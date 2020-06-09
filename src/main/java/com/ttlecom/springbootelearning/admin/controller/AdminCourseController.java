@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("course")
+@RequestMapping("admin/course")
 public class AdminCourseController {
 
   private final CourseService courseService;
@@ -62,7 +62,7 @@ public class AdminCourseController {
       errors.rejectValue("content", "course", "Please input a gist");
     }
     if (course.getImage() == null || course.getImage().isEmpty()) {
-      course.setImage("./assets/images/1.png");
+      course.setImage("/assets/images/1.png");
     }
 
     /*if (course.getLectureCount() == null) {
@@ -77,7 +77,7 @@ public class AdminCourseController {
     }
 
     courseService.add(course);
-    return "redirect:/course";
+    return "redirect:/admin/course";
   }
 
   @GetMapping("edit")
@@ -104,7 +104,7 @@ public class AdminCourseController {
       errors.rejectValue("content", "course", "Please input a gist");
     }
     if (course.getImage() == null || course.getImage().isEmpty()) {
-      course.setImage("./assets/images/1.png");
+      course.setImage("/assets/images/1.png");
     }
 
     /*if (course.getLectureCount() == null) {
@@ -118,12 +118,12 @@ public class AdminCourseController {
     }
 
     courseService.update(course);
-    return "redirect:/course";
+    return "redirect:/admin/course";
   }
 
   @GetMapping("delete")
   public String delete(@RequestParam("id") int id) {
     courseService.delete(id);
-    return "redirect:/course";
+    return "redirect:/admin/course";
   }
 }

@@ -13,11 +13,11 @@
         <div class="page-header-breadcrumb">
           <ul class="breadcrumb-title">
             <li class="breadcrumb-item">
-              <a th:href="@{/}">
+              <a th:href="@{/admin}">
                 <i class="feather icon-home"></i> Trang chủ
               </a>
             </li>
-            <li class="breadcrumb-item"><a th:href="@{/video/edit(id=${video.getId()})}">Cập nhật video</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/admin/video/edit(id=${video.getId()})}">Cập nhật video</a></li>
           </ul>
         </div>
       </div>
@@ -27,7 +27,7 @@
             <h2 class="text-uppercase text-center">Thêm mới video</h2>
           </div>
           <div class="card-block">
-            <form th:object="${video}" th:action="@{/video/edit}" method="post">
+            <form th:object="${video}" th:action="@{/admin/video/edit}" method="post">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -66,7 +66,7 @@
                 <div class="col-12">
                   <div class="form-group mt-3">
                     <button type="submit" class="btn btn-primary m-b-0">Lưu lại</button>
-                    <a th:href="@{/video}" class="btn btn-secondary text-white">Quay lại</a>
+                    <a th:href="@{/admin/video}" class="btn btn-secondary text-white">Quay lại</a>
                   </div>
                 </div>
               </div>

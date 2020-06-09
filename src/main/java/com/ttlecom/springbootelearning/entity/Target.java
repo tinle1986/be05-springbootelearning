@@ -3,8 +3,8 @@ package com.ttlecom.springbootelearning.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "results")
-public class Result {
+@Table(name = "targets")
+public class Target {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +24,9 @@ public class Result {
   @JoinColumn(name = "course_id", insertable = false, updatable = false)
   private Course course;
 
-  public Result() {}
+  public Target() {}
 
-  public Result(int id, String title, int orderIndex, int courseId) {
+  public Target(int id, String title, int orderIndex, int courseId) {
     this.id = id;
     this.title = title;
     this.orderIndex = orderIndex;
@@ -72,6 +72,4 @@ public class Result {
   public void setCourse(Course course) {
     this.course = course;
   }
-
-
 }

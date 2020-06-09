@@ -58,7 +58,7 @@ public class Course {
   private List<Video> videoList;
 
   @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-  private List<Result> resultList;
+  private List<Target> targetList;
 
   @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
   private List<UserCourse> userCourseList;
@@ -206,12 +206,12 @@ public class Course {
     this.videoList = videoList;
   }
 
-  public List<Result> getResultList() {
-    return resultList;
+  public List<Target> getTargetList() {
+    return targetList;
   }
 
-  public void setResultList(List<Result> resultList) {
-    this.resultList = resultList;
+  public void setTargetList(List<Target> targetList) {
+    this.targetList = targetList;
   }
 
   public List<UserCourse> getUserCourseList() {

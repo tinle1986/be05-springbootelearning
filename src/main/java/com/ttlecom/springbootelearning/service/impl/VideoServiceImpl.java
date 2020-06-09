@@ -48,6 +48,11 @@ public class VideoServiceImpl implements VideoService {
     entity.setCourseId(video.getCourseId());
     entity.setImage(video.getImage());
     videoRepository.save(entity);
+
+    Course course = courseService.getById(video.getCourseId());
+    course.setLectureCount();
+    course.setHourCount();
+    courseService.update(course);
   }
 
   @Override

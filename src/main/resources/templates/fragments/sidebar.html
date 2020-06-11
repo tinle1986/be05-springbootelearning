@@ -1,12 +1,14 @@
 <nav class="pcoded-navbar" xmlns:th="http://www.thymeleaf.org">
   <div class="pcoded-inner-navbar main-menu">
-    <ul class="pcoded-item pcoded-left-item">
+    <ul class="pcoded-item pcoded-left-item" id="sidebarList">
       <li class="">
         <a href="javascript:void(0)">
           <span class="pcoded-micon"><i class="feather icon-home"></i></span>
           <span class="pcoded-mtext">Dashboard</span>
         </a>
       </li>
+      <div id="userMenuItem"></div>
+      <div id="roleMenuItem"></div>
       <li class="">
         <a th:href="@{/admin/category}">
           <span class="pcoded-micon"><i class="feather icon-layers"></i></span>
@@ -29,18 +31,6 @@
         <a th:href="@{/admin/target}">
           <span class="pcoded-micon"><i class="feather icon-layers"></i></span>
           <span class="pcoded-mtext">Mục tiêu</span>
-        </a>
-      </li>
-      <li class="">
-        <a th:href="@{/admin/user}">
-          <span class="pcoded-micon"><i class="feather icon-user"></i></span>
-          <span class="pcoded-mtext">Tài khoản</span>
-        </a>
-      </li>
-      <li class="">
-        <a th:href="@{/admin/role}">
-          <span class="pcoded-micon"><i class="feather icon-user"></i></span>
-          <span class="pcoded-mtext">Quyền</span>
         </a>
       </li>
     </ul>

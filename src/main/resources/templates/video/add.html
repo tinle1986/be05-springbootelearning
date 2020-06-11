@@ -87,7 +87,7 @@
           formData.append("file", imageFile);
 
           axios({
-              url: "http://localhost:8082/image/upload",
+              url: "http://localhost:8082/admin/image/upload",
               method: "POST",
               data: formData
           }).then(res => {

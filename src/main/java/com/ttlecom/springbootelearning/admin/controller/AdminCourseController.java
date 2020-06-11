@@ -2,8 +2,12 @@ package com.ttlecom.springbootelearning.admin.controller;
 
 import com.ttlecom.springbootelearning.entity.Category;
 import com.ttlecom.springbootelearning.entity.Course;
+import com.ttlecom.springbootelearning.entity.Target;
+import com.ttlecom.springbootelearning.entity.Video;
 import com.ttlecom.springbootelearning.service.CategoryService;
 import com.ttlecom.springbootelearning.service.CourseService;
+import com.ttlecom.springbootelearning.service.TargetService;
+import com.ttlecom.springbootelearning.service.VideoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,10 +22,14 @@ public class AdminCourseController {
 
   private final CourseService courseService;
   private final CategoryService categoryService;
+  private final VideoService videoService;
+  private final TargetService targetService;
 
-  public AdminCourseController(CourseService courseService, CategoryService categoryService) {
+  public AdminCourseController(CourseService courseService, CategoryService categoryService, VideoService videoService, TargetService targetService) {
     this.courseService = courseService;
     this.categoryService = categoryService;
+    this.videoService = videoService;
+    this.targetService = targetService;
   }
 
   @GetMapping("")
@@ -123,6 +131,18 @@ public class AdminCourseController {
 
   @GetMapping("delete")
   public String delete(@RequestParam("id") int id) {
+    List<Video> videoList = videoService.getAllByCourseId(id);
+    List<Target> targetList = targetService.findByCourseId(id);
+    if (videoList != null) {
+      for (Video video : videoList) {
+        videoService.delete(video.getId());
+      }
+    }
+    if (targetList != null) {
+      for(Target target: targetList) {
+        targetService.delete(target.getId());
+      }
+    }
     courseService.delete(id);
     return "redirect:/admin/course";
   }

@@ -19,4 +19,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
   // @Query("SELECT u FROM User u")
   @Query("SELECT new com.ttlecom.springbootelearning.dto.UserDto(u.id, u.email, u.fullname, u.phone, r.name) FROM User u JOIN u.role r")
   List<UserDto> getAll();
+
+  @Query("SELECT new com.ttlecom.springbootelearning.dto.UserDto(u.id, u.email, u.fullname, u.phone, r.name) FROM User u JOIN u.role r WHERE u.email = ?1 AND u.roleId = ?2")
+  UserDto findByEmailAndRoleId(String email, int roleId);
 }

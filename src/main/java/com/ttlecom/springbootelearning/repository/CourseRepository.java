@@ -9,5 +9,4 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
   Course findByTitle(String title);
 
-
 }

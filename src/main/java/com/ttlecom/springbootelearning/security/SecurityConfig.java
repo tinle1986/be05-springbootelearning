@@ -43,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
 //    http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     http.cors();
-    http.csrf().disable()
+    http.csrf()
+            .disable()
             .antMatcher("/api/**")
             .authorizeRequests()
             .antMatchers("/api/auth/**", "/api/category/**")
@@ -52,6 +53,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .hasAnyRole("ADMIN")
             .antMatchers("/api/user/**")
             .hasAnyRole("ADMIN", "STAFF", "LEGAL", "GUEST")
+//        .and()
+//            .antMatcher("/admin/**")
+//            .authorizeRequests()
+//            .antMatchers("/admin/login**")
+//            .permitAll()
+//            .antMatchers("/admin/role/**")
+//            .hasAnyRole("ADMIN")
+//            .antMatchers("/admin/user")
+//            .hasAnyRole("ADMIN", "STAFF", "LEGAL")
             .anyRequest()
             .authenticated();
     http.addFilter(new JwtAuthFilter(authenticationManager(), userDetailsService, environment));

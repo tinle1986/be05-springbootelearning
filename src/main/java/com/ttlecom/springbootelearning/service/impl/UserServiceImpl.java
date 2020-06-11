@@ -70,6 +70,11 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public UserDto findByEmailAndRoleId(String email, int roleId) {
+    return userRepository.findByEmailAndRoleId(email, roleId);
+  }
+
+  @Override
   public void updatePassword(User user) {
     User entity = userRepository.findByEmail(user.getEmail());
     if (entity != null) {

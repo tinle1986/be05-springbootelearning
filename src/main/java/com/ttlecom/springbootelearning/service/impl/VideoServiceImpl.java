@@ -26,6 +26,11 @@ public class VideoServiceImpl implements VideoService {
   }
 
   @Override
+  public List<Video> getAllByCourseId(int id) {
+    return videoRepository.getAllByCourseId(id);
+  }
+
+  @Override
   public Video getById(int id) {
     return videoRepository.findById(id).get();
   }
@@ -58,5 +63,10 @@ public class VideoServiceImpl implements VideoService {
   @Override
   public void delete(int id) {
     videoRepository.deleteById(id);
+  }
+
+  @Override
+  public void deleteByCourseId(int id) {
+    videoRepository.deleteByCourseId(id);
   }
 }

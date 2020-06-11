@@ -45,9 +45,16 @@
                     <label>Điện thoại</label>
                     <input type="text" th:field="*{phone}" class="form-control"/>
                   </div>
+<!--                  <div class="form-group">-->
+<!--                    <label>Avatar</label>-->
+<!--                    <input type="text" th:field="*{avatar}" class="form-control"/>-->
+<!--                  </div>-->
                   <div class="form-group">
+                    <input th:field="*{avatar}" type="hidden" id="imageData"/>
                     <label>Avatar</label>
-                    <input type="text" th:field="*{avatar}" class="form-control"/>
+                    <input type="file" name="imageUpload" id="imageUpload" class="form-control"
+                           accept="image/x-png,image/jpeg,image/jpg"/>
+                    <a id="imageUrl" class="text-primary font-italic"></a>
                   </div>
                   <div class="form-group">
                     <label>Loại người dùng</label>
@@ -70,5 +77,33 @@
     </div>
   </div>
 </div>
+
+<th:block layout:fragment="script">
+  <script>
+      let imageUpload = document.getElementById("imageUpload");
+      imageUpload.addEventListener("change", event => {
+          let imageFile = event.target.files[0];
+          let formData = new FormData();
+          formData.append("file", imageFile);
+
+          axios({
+              url: "http://localhost:8082/admin/image/upload",
+              method: "POST",
+              data: formData
+          }).then(res => {
+              // console.log(res.data);
+              let imageUrl = "http://localhost:8082" + res.data;
+              let imageUrlLink = document.getElementById("imageUrl");
+              let imageData = document.getElementById("imageData")
+              imageUrlLink.innerHTML = imageUrl;
+              imageUrlLink.setAttribute("href", imageUrl);
+              imageData.value = imageUrl;
+          }).catch(err => {
+              console.log(err);
+          })
+      })
+  </script>
+</th:block>
+
 </body>
 </html>

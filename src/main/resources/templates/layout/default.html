@@ -71,8 +71,73 @@
     <script src="http://cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script>
     <script src="http://cdn.ckeditor.com/4.4.7/standard-all/adapters/jquery.js"></script>
     <script src="https://kit.fontawesome.com/3a06200ec6.js" crossorigin="anonymous"></script>
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <th:block layout:fragment="script"></th:block>
+
+    <script>
+        // check token existence and forward to login page if without token
+        let token = localStorage.getItem("ut");
+        if (!token) {
+            window.location.href = "http://localhost:8082/admin/login";
+        }
+
+        // load profile info
+        axios({
+            url: 'http://localhost:8082/api/user',
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).then(res => {
+            let userProfile = res.data;
+            document.getElementById("fullname").innerHTML = userProfile.fullname;
+            document.getElementById("avatar").setAttribute("src", userProfile.avatar);
+
+        }).catch(err => {
+            console.log(err);
+        })
+
+        // get role name
+        axios({
+            url: 'http://localhost:8082/api/user/role',
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).then(res => {
+            let roleName = res.data;
+            // console.log(roleName);
+            let userNode = `
+              <li class="">
+                <a href="/admin/user">
+                  <span class="pcoded-micon"><i class="feather icon-user"></i></span>
+                  <span class="pcoded-mtext">Tài khoản</span>
+                </a>
+              </li>
+            `
+            let roleNode = `
+              <li class="">
+                <a href="/admin/role">
+                  <span class="pcoded-micon"><i class="feather icon-user"></i></span>
+                  <span class="pcoded-mtext">Quyền</span>
+                </a>
+              </li>
+            `
+            if (roleName === "ROLE_ADMIN") {
+                document.getElementById("roleMenuItem").outerHTML = roleNode;
+                document.getElementById("userMenuItem").outerHTML = userNode;
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+
+        // logout function
+        function logOut() {
+            localStorage.removeItem("ut");
+            window.location.href = "http://localhost:8082/admin/login";
+        }
+    </script>
 
   </body>
 

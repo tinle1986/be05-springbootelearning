@@ -20,5 +20,7 @@ public interface UserService {
 
   List<UserDto> getAllDto();
 
+  UserDto findByEmailAndRoleId(String email, int roleId);
+
   void updatePassword(User user);
 }

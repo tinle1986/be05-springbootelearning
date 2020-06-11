@@ -37,6 +37,21 @@ public class ApiUserController {
     }
   }
 
+  // get user dto profile
+  @GetMapping("role")
+  public ResponseEntity<?> roleProfile() {
+    try {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = (UserDetails) principal;
+      String email = userDetails.getUsername();
+      User entity = userService.getByEmail(email);
+      UserDto userDto = userService.findByEmailAndRoleId(email, entity.getRoleId());
+      return new ResponseEntity<String>(userDto.getRoleName(), HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+  }
+
   //  get user list
   @GetMapping("list")
   public ResponseEntity<?> index() {
@@ -90,7 +105,7 @@ public class ApiUserController {
     }
   }
 
-//  update user profile info v2
+  //  update user profile info v2
   @PutMapping("")
   public ResponseEntity<?> updateUserProfile(@RequestBody UserProfileDto userProfileDto) {
     try {

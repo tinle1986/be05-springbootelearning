@@ -1,5 +1,6 @@
 package com.ttlecom.springbootelearning.service.impl;
 
+import com.ttlecom.springbootelearning.dto.CourseDto;
 import com.ttlecom.springbootelearning.entity.Course;
 import com.ttlecom.springbootelearning.repository.CourseRepository;
 import com.ttlecom.springbootelearning.service.CourseService;
@@ -19,6 +20,11 @@ public class CourseServiceImpl implements CourseService {
   @Override
   public List<Course> getAll() {
     return courseRepository.findAll();
+  }
+
+  @Override
+  public List<CourseDto> getAllDto() {
+    return courseRepository.getAllDto();
   }
 
   @Override

@@ -119,11 +119,11 @@ public class Course {
   }
 
   public void setHourCount() {
-    int totalHourCount = 0;
+    int totalMinCount = 0;
     for(Video video: this.getVideoList()) {
-      totalHourCount += video.getTimeCount();
+      totalMinCount += video.getTimeCount();
     }
-    this.hourCount = totalHourCount;
+    this.hourCount = totalMinCount/60;
   }
 
   public Long getViewCount() {

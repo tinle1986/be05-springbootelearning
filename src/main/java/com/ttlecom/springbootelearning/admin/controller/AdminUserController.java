@@ -50,6 +50,9 @@ public class AdminUserController {
     if (user.getPassword() == null || user.getPassword().isEmpty()) {
       errors.rejectValue("password", "user", "Please input a password");
     }
+    if (user.getAvatar() == null || user.getAvatar().isEmpty()) {
+      user.setAvatar("/assets/images/user.jpg");
+    }
 
     if (errors.hasErrors()) {
       List<Role> roleList = roleService.getAll();
@@ -75,6 +78,10 @@ public class AdminUserController {
   public String edit(Model model, @Valid @ModelAttribute("user") User user, BindingResult errors) {
     if (user.getEmail() == null || user.getEmail().isEmpty())
       errors.rejectValue("email", "user", "Please input an email address");
+    if (user.getAvatar() == null || user.getAvatar().isEmpty()) {
+      user.setAvatar("/assets/images/user.jpg");
+    }
+
     if (errors.hasErrors()) {
       List<Role> roleList = roleService.getAll();
       model.addAttribute("roles", roleList);

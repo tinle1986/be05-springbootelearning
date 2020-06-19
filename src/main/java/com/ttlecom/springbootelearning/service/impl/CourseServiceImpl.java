@@ -38,6 +38,11 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
+  public CourseDto getDtoById(int id) {
+    return courseRepository.getCourseDtoById(id);
+  }
+
+  @Override
   public void add(Course course) {
     Course entity = courseRepository.findByTitle(course.getTitle());
     if (entity == null) {

@@ -1,5 +1,7 @@
 package com.ttlecom.springbootelearning.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.util.List;
@@ -51,16 +53,20 @@ public class Course {
   private int categoryId;
 
   @ManyToOne
+  @JsonIgnore
   @JoinColumn(name = "category_id", insertable = false, updatable = false)
   private Category category;
 
   @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+  @JsonIgnore
   private List<Video> videoList;
 
   @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+  @JsonIgnore
   private List<Target> targetList;
 
   @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+  @JsonIgnore
   private List<UserCourse> userCourseList;
 
   public Course() {

@@ -1,5 +1,7 @@
 package com.ttlecom.springbootelearning.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -31,6 +33,7 @@ public class Video {
 
   @ManyToOne
   @JoinColumn(name = "course_id", insertable = false, updatable = false)
+  @JsonIgnore
   private Course course;
 
   public Video() {}

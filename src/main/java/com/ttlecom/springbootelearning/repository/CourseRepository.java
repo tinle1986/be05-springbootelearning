@@ -15,4 +15,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
   @Query("SELECT new com.ttlecom.springbootelearning.dto.CourseDto(c.id, c.title, ca.title, c.content, c.description, c.image, c.hourCount, c.lectureCount, c.price, c.discount, c.viewCount, c.promotionPrice, c.lastUpdate) FROM Course c JOIN c.category ca")
   List<CourseDto> getAllDto();
+
+  @Query("SELECT new com.ttlecom.springbootelearning.dto.CourseDto(c.id, c.title, ca.title, c.content, c.description, c.image, c.hourCount, c.lectureCount, c.price, c.discount, c.viewCount, c.promotionPrice, c.lastUpdate) FROM Course c JOIN c.category ca WHERE c.id = ?1")
+  CourseDto getCourseDtoById(int id);
 }

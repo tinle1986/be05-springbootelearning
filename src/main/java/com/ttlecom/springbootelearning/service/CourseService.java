@@ -7,11 +7,14 @@ import java.util.List;
 
 public interface CourseService {
   List<Course> getAll();
+
   List<CourseDto> getAllDto();
 
   Course getById(int id);
 
   Course getByTitle(String title);
+
+  CourseDto getDtoById(int id);
 
   void add(Course course);
 

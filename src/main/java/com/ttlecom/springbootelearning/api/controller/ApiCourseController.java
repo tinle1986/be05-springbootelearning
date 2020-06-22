@@ -70,7 +70,7 @@ public class ApiCourseController {
     }
   }
 
-  // check course bought
+  // get courses bought
   @GetMapping("purchase/bought")
   public ResponseEntity<?> getBoughtCourses() {
     try {
@@ -96,6 +96,7 @@ public class ApiCourseController {
       User entity = userService.getByEmail(email);
       int userId = entity.getId();
       courseCartDto.getCartList().forEach(courseId -> {
+        System.out.println(courseId);
         UserCourse userCourseEntity = new UserCourse();
         userCourseEntity.setUserId(userId);
         userCourseEntity.setCourseId(courseId);

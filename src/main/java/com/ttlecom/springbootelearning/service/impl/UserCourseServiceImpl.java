@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class UserCourseServiceImpl implements UserCourseService {
@@ -26,8 +27,17 @@ public class UserCourseServiceImpl implements UserCourseService {
 
   @Override
   public void add(UserCourse userCourse) {
-    UserCourse entity = userCourseRepository.findByCourseId(userCourse.getCourseId());
-    if (entity == null) {
+    List<UserCourse> userCourseList = userCourseRepository.findByUserId(userCourse.getUserId());
+    AtomicBoolean userCourseExists = new AtomicBoolean(false);
+    userCourseList.forEach(userCourseItem -> {
+      System.out.println(userCourseItem.getCourseId());
+      System.out.println(userCourse.getCourseId());
+      if (userCourseItem.getCourseId() == userCourse.getCourseId()) {
+        userCourseExists.set(true);
+      }
+    });
+    System.out.println(userCourseExists.get());
+    if (!userCourseExists.get()) {
       userCourseRepository.save(userCourse);
     } else {
       System.out.println("Course is existing!");

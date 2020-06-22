@@ -6,6 +6,7 @@ import com.ttlecom.springbootelearning.service.UserCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +20,7 @@ public class UserCourseServiceImpl implements UserCourseService {
   }
 
   @Override
-  public UserCourse getByUserId(int id) {
+  public List<UserCourse> getByUserId(int id) {
     return userCourseRepository.findByUserId(id);
   }
 
@@ -31,5 +32,15 @@ public class UserCourseServiceImpl implements UserCourseService {
     } else {
       System.out.println("Course is existing!");
     }
+  }
+
+  @Override
+  public List<Integer> getCourseIdByUserId(int id) {
+    List<Integer> courseIdList = new ArrayList<>();
+    List<UserCourse> userCourseList = userCourseRepository.findByUserId(id);
+    userCourseList.forEach(userCourse -> {
+      courseIdList.add(userCourse.getCourseId());
+    });
+    return courseIdList;
   }
 }

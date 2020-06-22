@@ -4,6 +4,7 @@ import com.ttlecom.springbootelearning.dto.CourseCartDto;
 import com.ttlecom.springbootelearning.dto.CourseDto;
 import com.ttlecom.springbootelearning.entity.User;
 import com.ttlecom.springbootelearning.entity.UserCourse;
+import com.ttlecom.springbootelearning.security.CustomUserDetails;
 import com.ttlecom.springbootelearning.service.CourseService;
 import com.ttlecom.springbootelearning.service.UserCourseService;
 import com.ttlecom.springbootelearning.service.UserService;
@@ -64,6 +65,22 @@ public class ApiCourseController {
         });
       });
       return new ResponseEntity<List<CourseDto>>(courseCartList, HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  // check course bought
+  @GetMapping("purchase/bought")
+  public ResponseEntity<?> getBoughtCourses() {
+    try {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      CustomUserDetails customUserDetails = (CustomUserDetails) principal;
+      String email = customUserDetails.getUsername();
+      User userEntity = userService.getByEmail(email);
+      int userId = userEntity.getId();
+      List<Integer> courseIdList = userCourseService.getCourseIdByUserId(userId);
+      return new ResponseEntity<List<Integer>>(courseIdList, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }

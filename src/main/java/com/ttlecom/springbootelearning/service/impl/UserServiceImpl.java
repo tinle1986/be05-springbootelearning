@@ -1,6 +1,7 @@
 package com.ttlecom.springbootelearning.service.impl;
 
 import com.ttlecom.springbootelearning.dto.UserDto;
+import com.ttlecom.springbootelearning.dto.UserProfileDto;
 import com.ttlecom.springbootelearning.entity.User;
 import com.ttlecom.springbootelearning.repository.UserRepository;
 import com.ttlecom.springbootelearning.service.UserService;
@@ -72,6 +73,11 @@ public class UserServiceImpl implements UserService {
   @Override
   public UserDto findByEmailAndRoleId(String email, int roleId) {
     return userRepository.findByEmailAndRoleId(email, roleId);
+  }
+
+  @Override
+  public UserProfileDto findUserProfileByEmail(String email) {
+    return userRepository.findUserProfileByEmail(email);
   }
 
   @Override

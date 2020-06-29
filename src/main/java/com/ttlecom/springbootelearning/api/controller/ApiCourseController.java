@@ -70,7 +70,7 @@ public class ApiCourseController {
     }
   }
 
-  // get courses bought
+  // get course IDs bought of specific user
   @GetMapping("purchase/bought")
   public ResponseEntity<?> getBoughtCourses() {
     try {

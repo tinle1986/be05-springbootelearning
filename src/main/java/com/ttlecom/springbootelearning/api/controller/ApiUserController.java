@@ -2,6 +2,8 @@ package com.ttlecom.springbootelearning.api.controller;
 
 import com.ttlecom.springbootelearning.dto.*;
 import com.ttlecom.springbootelearning.entity.User;
+import com.ttlecom.springbootelearning.security.CustomUserDetails;
+import com.ttlecom.springbootelearning.service.UserCourseService;
 import com.ttlecom.springbootelearning.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,9 @@ public class ApiUserController {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
+  @Autowired
+  private UserCourseService userCourseService;
+
   //  get user profile info
   @GetMapping("")
   public ResponseEntity<?> profile() {
@@ -30,8 +35,8 @@ public class ApiUserController {
       Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
       UserDetails userDetails = (UserDetails) principal;
       String email = userDetails.getUsername();
-      User entity = userService.getByEmail(email);
-      return new ResponseEntity<User>(entity, HttpStatus.OK);
+      UserProfileDto entity = userService.findUserProfileByEmail(email);
+      return new ResponseEntity<UserProfileDto>(entity, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
     }
@@ -47,6 +52,22 @@ public class ApiUserController {
       User entity = userService.getByEmail(email);
       UserDto userDto = userService.findByEmailAndRoleId(email, entity.getRoleId());
       return new ResponseEntity<String>(userDto.getRoleName(), HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  // get courses of user
+  @GetMapping("course")
+  public ResponseEntity<?> getMyCourses() {
+    try {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      CustomUserDetails customUserDetails = (CustomUserDetails) principal;
+      String email = customUserDetails.getUsername();
+      User userEntity = userService.getByEmail(email);
+      int userId = userEntity.getId();
+      List<CourseDto> courseDtoList = userCourseService.getCourseListByUserId(userId);
+      return new ResponseEntity<List<CourseDto>>(courseDtoList, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }

@@ -1,6 +1,8 @@
 package com.ttlecom.springbootelearning.service.impl;
 
+import com.ttlecom.springbootelearning.dto.CourseDto;
 import com.ttlecom.springbootelearning.entity.UserCourse;
+import com.ttlecom.springbootelearning.repository.CourseRepository;
 import com.ttlecom.springbootelearning.repository.UserCourseRepository;
 import com.ttlecom.springbootelearning.service.UserCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class UserCourseServiceImpl implements UserCourseService {
   @Autowired
   private UserCourseRepository userCourseRepository;
+  @Autowired
+  private CourseRepository courseRepository;
 
   @Override
   public List<UserCourse> getAll() {
@@ -23,6 +27,16 @@ public class UserCourseServiceImpl implements UserCourseService {
   @Override
   public List<UserCourse> getByUserId(int id) {
     return userCourseRepository.findByUserId(id);
+  }
+
+  @Override
+  public List<CourseDto> getCourseListByUserId(int id) {
+    List<Integer> courseIdList = getCourseIdByUserId(id);
+    List<CourseDto> courseList = new ArrayList<>();
+    courseIdList.forEach(courseId -> {
+      courseList.add(courseRepository.getCourseDtoById(courseId));
+    });
+    return courseList;
   }
 
   @Override

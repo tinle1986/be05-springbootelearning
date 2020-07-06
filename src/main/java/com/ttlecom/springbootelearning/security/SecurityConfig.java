@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .disable()
             .antMatcher("/api/**")
             .authorizeRequests()
-            .antMatchers("/api/auth/**", "/api/category/**", "/api/course/detail/**", "/api/course/list/**", "/api/course/cart/**", "/api/target/**", "/api/video/**")
+            .antMatchers("/api/auth/**", "/api/category/**", "/api/course/detail/**", "/api/course/list/**", "/api/course/cart/**", "/api/course/category/**", "/api/course/find**", "/api/target/**", "/api/video/**")
             .permitAll()
             .antMatchers("/api/role/**")
             .hasAnyRole("ADMIN", "GUEST")

@@ -12,6 +12,10 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
   Course findByTitle(String title);
+  List<Course> findCoursesByTitleContaining(String title);
+
+
+  List<Course> findByCategoryId(int id);
 
   @Query("SELECT new com.ttlecom.springbootelearning.dto.CourseDto(c.id, c.title, ca.title, c.content, c.description, c.image, c.hourCount, c.lectureCount, c.price, c.discount, c.viewCount, c.promotionPrice, c.lastUpdate) FROM Course c JOIN c.category ca")
   List<CourseDto> getAllDto();

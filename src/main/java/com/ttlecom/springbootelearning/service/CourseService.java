@@ -10,9 +10,11 @@ public interface CourseService {
 
   List<CourseDto> getAllDto();
 
+  List<Course> getByCategoryId(int id);
+
   Course getById(int id);
 
-  Course getByTitle(String title);
+  List<Course> getCoursesByTitleContaining(String title);
 
   CourseDto getDtoById(int id);
 

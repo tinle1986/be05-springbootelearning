@@ -2,6 +2,9 @@ package com.ttlecom.springbootelearning.api.controller;
 
 import com.ttlecom.springbootelearning.dto.CourseCartDto;
 import com.ttlecom.springbootelearning.dto.CourseDto;
+import com.ttlecom.springbootelearning.dto.FindCoursesByAStringDto;
+import com.ttlecom.springbootelearning.dto.GetCoursesByCategoryIdDto;
+import com.ttlecom.springbootelearning.entity.Course;
 import com.ttlecom.springbootelearning.entity.User;
 import com.ttlecom.springbootelearning.entity.UserCourse;
 import com.ttlecom.springbootelearning.security.CustomUserDetails;
@@ -70,6 +73,17 @@ public class ApiCourseController {
     }
   }
 
+  // find courses containing by a title string
+  @PostMapping("find")
+  public ResponseEntity<?> findCoursesByString(@RequestBody FindCoursesByAStringDto findCoursesByAStringDto) {
+    try {
+      List<Course> courseList = courseService.getCoursesByTitleContaining(findCoursesByAStringDto.getTitleString());
+      return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+  }
+
   // get course IDs bought of specific user
   @GetMapping("purchase/bought")
   public ResponseEntity<?> getBoughtCourses() {
@@ -104,6 +118,17 @@ public class ApiCourseController {
         userCourseService.add(userCourseEntity);
       });
       return new ResponseEntity<String>("Purchased successfully", HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  // get list of course by categoryId
+  @PostMapping("category")
+  public ResponseEntity<?> getCoursesByCategoryId(@RequestBody GetCoursesByCategoryIdDto getCoursesByCategoryIdDto) {
+    try {
+      List<Course> courseList = courseService.getByCategoryId(getCoursesByCategoryIdDto.getCategoryId());
+      return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }

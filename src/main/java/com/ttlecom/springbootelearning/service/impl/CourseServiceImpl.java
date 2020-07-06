@@ -28,13 +28,18 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
+  public List<Course> getByCategoryId(int id) {
+    return courseRepository.findByCategoryId(id);
+  }
+
+  @Override
   public Course getById(int id) {
     return courseRepository.findById(id).get();
   }
 
   @Override
-  public Course getByTitle(String title) {
-    return courseRepository.findByTitle(title);
+  public List<Course> getCoursesByTitleContaining(String title) {
+    return courseRepository.findCoursesByTitleContaining(title);
   }
 
   @Override
